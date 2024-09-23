@@ -1,0 +1,40 @@
+.top-wrapper {
+    padding: 180px 0 0px;
+}
+.btn-wrapper {
+    padding: 5% 0 0px;
+}
+
+
+.btn-sign {
+    width:83%;
+    height:48px;
+    color: white;
+}
+
+.btn-login {
+    width:96%;
+    height:48px;
+    background-color: #F9D7D8;
+}
+
+.btn-login::placeholder {
+    color: white;
+    text-align: center;
+}
+
+.fgt-pass {
+    color: #3850B0;
+    font-size: 13px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.img-bgo {
+    margin-top:10.8%;
+}
+
+.form-label, .form-select {
+    color: #5A65D8;
+    font-weight: bold;
+}
