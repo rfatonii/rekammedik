@@ -1,0 +1,11 @@
+
+
+table sql
+data triase ; data_triase_igd
+penilaian awal kep. igd : penilaian_awal_keperawatan_igd
+penilaian awal med. igd : penilaian_medis_igd
+pemeriksaan ralan : pemeriksaan_ralan
+pemeriksaan ranap : periksa_ranap
+catatan keperawatan : catatan_keperawatan_ranap
+transfer pasien antar ruang : transfer_pasien_antar_ruang
+resume : resume_pasien_ranap

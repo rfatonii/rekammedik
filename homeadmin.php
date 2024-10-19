@@ -12,6 +12,7 @@ include 'config/db_data.php';
 
 $conn_login->close();
 $conn_sik->close();
+
 ?>
 
 <!DOCTYPE html>
@@ -62,7 +63,7 @@ $conn_sik->close();
       </div>
 
       <!-- Sidebar Menu -->
-      <?php include 'include/sidebar.php' ?>
+      <?php include 'include/sidebaradmin.php' ?>
       <!-- /.sidebar-menu -->
     </div>
     <!-- /.sidebar -->
@@ -130,14 +131,7 @@ $conn_sik->close();
         <!-- /.row -->
 <!-- FILTER DATA BELUM SELESAI -->
         <div class="row">
-          <div class="col-6"></div>
-          <div class="col-6 p-4">
-          <div class="container">
-              <h4>Jumlah Kelengkapan Catatan Rekam Medis Elektronik Formulir Triase Tahun 2024</h4>
-              <canvas id="rekamMedisChart"></canvas>
-          </div>
-          </div>
-          <!-- <div class="col-4">
+          <div class="col-4">
             <div class="accordion" id="accordionExample">
               <div class="accordion-item">
                 <h1 class="accordion-header">
@@ -226,7 +220,7 @@ $conn_sik->close();
                 </div>
               </div>
             </div>
-          </div> -->
+          </div>
         </div>
 <!-- FILTER DATA BELUM SELESAI -->
 

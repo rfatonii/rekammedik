@@ -5,33 +5,12 @@
     <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
     <li class="nav-item">
-    <a href="./home.php" class="nav-link">
-        <i class="nav-icon fas fa-desktop"></i>
-        <p>
-        Dashboard
-        <!-- <i class="right fas fa-angle-left"></i> -->
-        </p>
-    </a>
-    <!-- <ul class="nav nav-treeview">
-        <li class="nav-item">
-        <a href="./index.html" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>RM Telah Di Review</p>
+        <a href="./home.php" class="nav-link">
+            <i class="nav-icon fas fa-desktop"></i>
+            <p>
+            Dashboard
+            </p>
         </a>
-        </li>
-        <li class="nav-item">
-        <a href="#" class="nav-link">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Dashboard v2</p>
-        </a>
-        </li>
-        <li class="nav-item">
-        <a href="#" class="nav-link active">
-            <i class="far fa-circle nav-icon"></i>
-            <p>Dashboard v3</p>
-        </a>
-        </li>
-    </ul> -->
     </li>
 
     <li class="nav-item">
@@ -49,12 +28,12 @@
             <p>RM Telah Di Review</p>
         </a>
         </li>
-        <!-- <li class="nav-item">
+        <li class="nav-item">
         <a href="./formstandar.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Jenis Formulir Standar</p>
         </a>
-        </li> -->
+        </li>
         <li class="nav-item">
         <a href="./itemstandar.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
@@ -68,6 +47,15 @@
         </a>
         </li>
     </ul>
+    </li>
+
+    <li class="nav-item">
+    <a href="#" class="nav-link">
+        <i class="nav-icon fas fa-stop"></i>
+        <p>
+        Indikator
+        </p>
+    </a>
     </li>
 
     <li class="nav-item">

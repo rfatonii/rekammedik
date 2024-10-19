@@ -5,7 +5,7 @@
     <!-- Add icons to the links using the .nav-icon class
         with font-awesome or any other icon font library -->
     <li class="nav-item">
-    <a href="./home.php" class="nav-link">
+    <a href="../home.php" class="nav-link">
         <i class="nav-icon fas fa-desktop"></i>
         <p>
         Dashboard
@@ -44,7 +44,7 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-        <a href="./review.php" class="nav-link">
+        <a href="../review.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>RM Telah Di Review</p>
         </a>
@@ -56,13 +56,13 @@
         </a>
         </li> -->
         <li class="nav-item">
-        <a href="./itemstandar.php" class="nav-link">
+        <a href="../itemstandar.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Jenis Item Standar</p>
         </a>
         </li>
         <li class="nav-item">
-        <a href="./ppa.php" class="nav-link">
+        <a href="../ppa.php" class="nav-link">
             <i class="far fa-circle nav-icon"></i>
             <p>Formulir PPA</p>
         </a>
@@ -71,7 +71,7 @@
     </li>
 
     <li class="nav-item">
-    <a href="login/logout.php" class="nav-link">
+    <a href="../login/logout.php" class="nav-link">
         <i class="nav-icon fas fa-stop"></i>
         <p>
         Logout

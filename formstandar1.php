@@ -13,22 +13,6 @@ $loginMessage = checkConnection($conn_login, "login_rekam_medis");
 // Mengecek koneksi ke database sik_trial
 $dataMessage = checkConnection($conn_sik, "sik_trial");
 
-// Mengambil parameter no_rawat dari URL
-$no_rawat = isset($_GET['no_rawat']) ? $_GET['no_rawat'] : null;
-
-// Validasi no_rawat
-if (!$no_rawat) {
-    // Jika no_rawat tidak ada, redirect atau tampilkan pesan error
-    echo "No Rawat tidak valid.";
-    exit();
-}
-
-// (Opsional) Sanitasi no_rawat untuk mencegah SQL Injection
-$no_rawat = $conn_sik->real_escape_string($no_rawat);
-
-// Sekarang Anda dapat menggunakan $no_rawat dalam query Anda
-
-
 // Query Data Triase
 $dataTriase = "SELECT 
     COUNT(CASE WHEN triase.no_rawat IS NOT NULL THEN 1 END) AS jumlah_pasien_triase,
@@ -37,9 +21,7 @@ FROM
 reg_periksa rp
 INNER JOIN poliklinik poli ON rp.kd_poli = poli.kd_poli
 LEFT JOIN data_triase_igd triase ON rp.no_rawat = triase.no_rawat
-WHERE poli.kd_poli = 'IGDK'
-AND rp.no_rawat = '$no_rawat'
-and  status_lanjut='Ranap'";
+WHERE poli.kd_poli = 'IGDK' and tgl_registrasi='2023-09-08' and status_lanjut='Ranap'";
 
 $dataResult = $conn_sik->query($dataTriase);
 // End Query Data Triase
@@ -53,9 +35,8 @@ FROM
 reg_periksa rp
 INNER JOIN poliklinik poli ON rp.kd_poli = poli.kd_poli
 LEFT JOIN penilaian_awal_keperawatan_igd penilaiankeperawatanigd ON rp.no_rawat = penilaiankeperawatanigd.no_rawat
-WHERE poli.kd_poli = 'IGDK'
-AND rp.no_rawat = '$no_rawat'
-and  status_lanjut='Ranap'";
+WHERE 
+poli.kd_poli = 'IGDK' and tgl_registrasi='2023-09-08' and status_lanjut='Ranap'";
 
 $dataResult2 = $conn_sik->query($dataAwalKeperawatanIgd);
 
@@ -70,9 +51,24 @@ FROM
 reg_periksa rp
 INNER JOIN poliklinik poli ON rp.kd_poli = poli.kd_poli
 LEFT JOIN penilaian_medis_igd penilaian ON rp.no_rawat = penilaian.no_rawat
-WHERE poli.kd_poli = 'IGDK'
-AND rp.no_rawat = '$no_rawat'
-and  status_lanjut='Ranap'";
+WHERE 
+poli.kd_poli = 'IGDK' AND tgl_registrasi = '2023-09-08' and status_lanjut='Ranap'";
+
+$dataResult3 = $conn_sik->query($dataPenilaianMedisIgd);
+
+//End Query Penilaian Medis IGD
+
+// Query Penilaian Medis IGD
+
+$dataPenilaianMedisIgd = "SELECT 
+    COUNT(CASE WHEN penilaian.no_rawat IS NOT NULL THEN 1 END) AS jumlah_penilaian,
+    COUNT(CASE WHEN penilaian.no_rawat IS NULL THEN 1 END) AS jumlah_non_penilaian
+FROM 
+reg_periksa rp
+INNER JOIN poliklinik poli ON rp.kd_poli = poli.kd_poli
+LEFT JOIN penilaian_medis_igd penilaian ON rp.no_rawat = penilaian.no_rawat
+WHERE 
+poli.kd_poli = 'IGDK' AND tgl_registrasi = '2023-09-08' and status_lanjut='Ranap'";
 
 $dataResult3 = $conn_sik->query($dataPenilaianMedisIgd);
 
@@ -89,9 +85,8 @@ INNER JOIN
 poliklinik poli ON rp.kd_poli = poli.kd_poli
 LEFT JOIN 
 pemeriksaan_ralan pr ON rp.no_rawat = pr.no_rawat
-WHERE poli.kd_poli = 'IGDK'
-AND rp.no_rawat = '$no_rawat'
-and  status_lanjut='Ranap'";
+WHERE 
+poli.kd_poli = 'IGDK' and tgl_registrasi='2023-09-08' and status_lanjut='Ranap'";
 
 $dataResult4 = $conn_sik->query($dataPemeriksaanRalan);
 
@@ -99,20 +94,18 @@ $dataResult4 = $conn_sik->query($dataPemeriksaanRalan);
 
 // Data Pemeriksaan Rawat Inap
 $dataPemeriksaanRanap = "SELECT 
--- note
-    COUNT(DISTINCT CASE WHEN prp.no_rawat IS NOT NULL THEN rp.no_rawat END) AS jumlah_pemeriksaan_ranap,
-    COUNT(DISTINCT CASE WHEN prp.no_rawat IS NULL THEN rp.no_rawat END) AS jumlah_nonpemeriksaan_ranap
+    COUNT(CASE WHEN prp.no_rawat IS NOT NULL THEN 1 END) AS jumlah_pemeriksaan_ranap,
+    COUNT(CASE WHEN prp.no_rawat IS NULL THEN 1 END) AS jumlah_nonpemeriksaan_ranap
 FROM 
 reg_periksa rp
 INNER JOIN 
 poliklinik poli ON rp.kd_poli = poli.kd_poli
 LEFT JOIN 
 pemeriksaan_ranap prp ON rp.no_rawat = prp.no_rawat
-WHERE poli.kd_poli = 'IGDK'
-AND rp.no_rawat = '$no_rawat'
-and  status_lanjut='Ranap'";
+WHERE 
+poli.kd_poli = 'IGDK' and tgl_registrasi='2023-09-08' and status_lanjut='Ranap'";
 
-$dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
+$dataResult5 = $conn_sik->query($dataPemeriksaanRanap)
 // End Data Pemeriksaan Rawat Inap
 ?>
 
@@ -224,7 +217,7 @@ $dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
                     <td>{$row['jumlah_pasien_non_triase']}</td>
                     </tr>";
                   } else {
-                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
                   }
                   ?>
                    <!--End Data pasien Triase IGD -->
@@ -240,7 +233,7 @@ $dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
                     <td>{$row['jumlah_awal_nonkeperawatan_igd']}</td>
                     </tr>";
                   } else {
-                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
                   }
                   ?>
                   <!-- End Data Awal Keperawatan IGD -->
@@ -256,7 +249,7 @@ $dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
                     <td>{$row['jumlah_non_penilaian']}</td>
                     </tr>";
                   } else {
-                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
                   }
                   ?>
                   <!-- End Data Penilaian Medis IGD -->
@@ -272,7 +265,7 @@ $dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
                     <td>{$row['jumlah_nonpemeriksaan_ralan']}</td>
                     </tr>";
                   } else {
-                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
                   }
                   ?>
                    <!-- End Data Pemeriksaan Rawat Jalan -->
@@ -288,7 +281,7 @@ $dataResult5 = $conn_sik->query($dataPemeriksaanRanap);
                     <td>{$row['jumlah_nonpemeriksaan_ranap']}</td>
                     </tr>";
                   } else {
-                    echo "<tr><td colspan='4'>Tidak ada data</td></tr>";
+                    echo "<tr><td colspan='7'>Tidak ada data</td></tr>";
                   }
                   ?>
                    <!-- End Data Pemeriksaan Rawat Inap -->

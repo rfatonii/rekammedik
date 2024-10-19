@@ -1,5 +1,5 @@
 <?php
-include 'db_login.php'; // Koneksi ke database
+include '../config/db_login.php'; // Koneksi ke database
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = $_POST['email'];

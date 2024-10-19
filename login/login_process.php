@@ -1,5 +1,5 @@
 <?php
-include 'db_login.php'; // Koneksi ke database
+include '../config/db_login.php'; // Koneksi ke database
 session_start();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
